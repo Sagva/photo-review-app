@@ -1,10 +1,10 @@
 import "./App.css";
 import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
-import SignupPage from "./pages/SignupPage";
-import LoginPage from "./pages/LoginPage";
-import LogoutPage from "./pages/LogoutPage";
-import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import SignupPage from "./pages/Auth/SignupPage";
+import LoginPage from "./pages/Auth/LoginPage";
+import LogoutPage from "./pages/Auth/LogoutPage";
+import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
 function App() {
   return (
     <div className="App">

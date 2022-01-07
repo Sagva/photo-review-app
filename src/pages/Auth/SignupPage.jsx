@@ -1,24 +1,31 @@
 import React, { useRef, useState } from "react";
 import { Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 
-const LoginPage = () => {
+const SignupPage = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { login } = useAuthContext();
+  const { signup } = useAuthContext();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // make sure user has entered the same password in both input fields
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      return setError("The passwords does not match");
+    }
+
     setError(null);
 
-    // try to login the user with the specified credentials
+    // try to sign up the user with the specified credentials
     try {
       setLoading(true);
-      await login(emailRef.current.value, passwordRef.current.value);
+      await signup(emailRef.current.value, passwordRef.current.value);
       navigate(`/`);
     } catch (e) {
       setError(e.message);
@@ -32,7 +39,7 @@ const LoginPage = () => {
         <Col md={{ span: 6, offset: 3 }}>
           <Card>
             <Card.Body>
-              <Card.Title className="mb-3">Log In</Card.Title>
+              <Card.Title className="mb-3">Sign Up</Card.Title>
 
               {error && <Alert variant="danger">{error}</Alert>}
 
@@ -47,8 +54,17 @@ const LoginPage = () => {
                   <Form.Control type="password" ref={passwordRef} required />
                 </Form.Group>
 
+                <Form.Group id="password-confirm" className="mb-3">
+                  <Form.Label>Password Confirmation</Form.Label>
+                  <Form.Control
+                    type="password"
+                    ref={passwordConfirmRef}
+                    required
+                  />
+                </Form.Group>
+
                 <Button disabled={loading} type="submit">
-                  Log In
+                  Create Account
                 </Button>
               </Form>
 
@@ -59,7 +75,7 @@ const LoginPage = () => {
           </Card>
 
           <div className="text-center mt-3">
-            Need an account? <Link to={`/signup`}>Sign Up</Link>
+            Already have an account? <Link to={`//login`}>Log In</Link>
           </div>
         </Col>
       </Row>
@@ -67,4 +83,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;
