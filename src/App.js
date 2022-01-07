@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import LogoutPage from "./pages/LogoutPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 function App() {
   return (
     <div className="App">
@@ -13,6 +14,8 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path={`/login`} element={<LoginPage />} />
         <Route path={`/logout`} element={<LogoutPage />} />
+        <Route path={`/logout`} element={<LogoutPage />} />
+        <Route path={`/forgot-password`} element={<ForgotPasswordPage />} />
       </Routes>
     </div>
   );
