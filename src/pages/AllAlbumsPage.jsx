@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { addDoc, collection, query, where } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuthContext } from "../contexts/AuthContext";
@@ -10,7 +10,10 @@ const AllAlbumsPage = () => {
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
 
-  const queryRef = query(collection(db, "albums"));
+  const queryRef = query(
+    collection(db, "albums"),
+    where("owner", "==", currentUser.uid)
+  );
 
   const { data, isLoading } = useFirestoreQueryData(
     ["albums"],
@@ -43,9 +46,19 @@ const AllAlbumsPage = () => {
       {data && (
         <>
           {data.length ? (
-            <div>
+            <div className="d-flex flex-column align-items-center justify-content-center flex-md-row flex-wrap mt-3">
               {data.map((album) => {
-                return <div key={album.id}>{album.id}</div>;
+                return (
+                  <Card
+                    key={album.id}
+                    style={{ width: "18rem", height: "6rem" }}
+                    className="mx-3 my-3"
+                  >
+                    <Card.Body>
+                      <Card.Title>{album.id}</Card.Title>
+                    </Card.Body>
+                  </Card>
+                );
               })}
             </div>
           ) : (
