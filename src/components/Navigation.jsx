@@ -4,8 +4,11 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import photo from "../assets/photo.svg";
+import { NavDropdown } from "react-bootstrap";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const Navigation = () => {
+  const { currentUser } = useAuthContext();
   return (
     <Navbar bg="dark" variant="dark" expand="md">
       <Container>
@@ -20,12 +23,31 @@ const Navigation = () => {
             <NavLink to={`/`} className="nav-link">
               Home
             </NavLink>
-            <NavLink to={`/login`} className="nav-link">
-              Login
-            </NavLink>
-            <NavLink to={`/signup`} className="nav-link">
-              Signup
-            </NavLink>
+            {currentUser ? (
+              <>
+                <NavLink to={`/all-albums`} className="nav-link">
+                  All albums
+                </NavLink>
+
+                <NavDropdown
+                  title={currentUser.displayName || currentUser.email}
+                  id="basic-nav-dropdown"
+                >
+                  <NavLink to={`/logout`} className="dropdown-item">
+                    Log Out
+                  </NavLink>
+                </NavDropdown>
+              </>
+            ) : (
+              <>
+                <NavLink to={`/login`} className="nav-link">
+                  Login
+                </NavLink>
+                <NavLink to={`/signup`} className="nav-link">
+                  Signup
+                </NavLink>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
