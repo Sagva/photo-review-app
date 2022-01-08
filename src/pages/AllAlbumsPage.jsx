@@ -26,6 +26,7 @@ const AllAlbumsPage = () => {
     const newAlbum = await addDoc(collection(db, "albums"), {
       name: "New album",
       owner: currentUser.uid,
+      photos: [],
     });
 
     navigate(`/album/${newAlbum.id}`);
@@ -53,6 +54,7 @@ const AllAlbumsPage = () => {
                     key={album.id}
                     style={{ width: "18rem", height: "6rem" }}
                     className="mx-3 my-3"
+                    onClick={() => navigate(`/album/${album.id}`)}
                   >
                     <Card.Body>
                       <Card.Title>{album.id}</Card.Title>
