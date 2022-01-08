@@ -29,10 +29,7 @@ const Navigation = () => {
                   All albums
                 </NavLink>
 
-                <NavDropdown
-                  title={currentUser.displayName || currentUser.email}
-                  id="basic-nav-dropdown"
-                >
+                <NavDropdown title={currentUser.email} id="basic-nav-dropdown">
                   <NavLink to={`/logout`} className="dropdown-item">
                     Log Out
                   </NavLink>

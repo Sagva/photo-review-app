@@ -7,6 +7,7 @@ import LogoutPage from "./pages/Auth/LogoutPage";
 import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
 import Navigation from "./components/Navigation";
 import AllAlbumsPage from "./pages/AllAlbumsPage";
+import AlbumPage from "./pages/AlbumPage";
 function App() {
   return (
     <div className="App">
@@ -20,6 +21,7 @@ function App() {
         <Route path={`/logout`} element={<LogoutPage />} />
         <Route path={`/forgot-password`} element={<ForgotPasswordPage />} />
         <Route path={`/all-albums`} element={<AllAlbumsPage />} />
+        <Route path={`/album/:id`} element={<AlbumPage />} />
       </Routes>
     </div>
   );
