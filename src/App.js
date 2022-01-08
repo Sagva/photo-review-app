@@ -5,9 +5,11 @@ import SignupPage from "./pages/Auth/SignupPage";
 import LoginPage from "./pages/Auth/LoginPage";
 import LogoutPage from "./pages/Auth/LogoutPage";
 import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
+import Navigation from "./components/Navigation";
 function App() {
   return (
     <div className="App">
+      <Navigation />
       Foto review app
       <Routes>
         <Route path="/" element={<Home />} />
