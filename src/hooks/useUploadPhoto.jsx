@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useAuthContext } from "../contexts/AuthContext";
 import { db, storage } from "../firebase";
 import {
   collection,
@@ -39,8 +38,7 @@ const useUploadPhoto = (albumId) => {
 
     // construct full path in storage to save photo as
     const storageFullpath = `photos/${uuid}`;
-    console.log(`storage_fullpath`, storageFullpath);
-
+    
     try {
       // create a referenc in storage to upload photo to
       const storageRef = ref(storage, storageFullpath);
@@ -87,7 +85,7 @@ const useUploadPhoto = (albumId) => {
       setIsSuccess(true);
       setProgress(null); //progress bar disappear
     } catch (e) {
-      // console.log(`Error`, e);
+      
       setError(e.message);
       setIsError(true);
       setIsMutating(false);

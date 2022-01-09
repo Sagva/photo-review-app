@@ -11,9 +11,10 @@ const useAlbum = (albumId) => {
     refToAlbum,
     {
       idField: "_id",
+      subscribe: true,
     },
     {
-      subscribe: true,
+      refetchOnMount: "always",
     }
   );
 

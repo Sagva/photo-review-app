@@ -5,6 +5,7 @@ import useUploadPhoto from "../hooks/useUploadPhoto";
 import { Alert } from "react-bootstrap";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import useAlbum from "../hooks/UseAlbum";
+import ImageGrid from "../components/ImageGid";
 
 const AlbumPage = () => {
   const { id } = useParams();
@@ -26,7 +27,6 @@ const AlbumPage = () => {
     }
 
     uploadPhoto.mutate(acceptedFiles[0]);
-    album.refetch()
   }, []);
 
   const {
@@ -81,6 +81,7 @@ const AlbumPage = () => {
           <Alert variant="success">The photo has been uploaded!</Alert>
         )}
       </div>
+      {album.isSuccess && <ImageGrid urls={album.data.data().photos} />}
     </div>
   );
 };
