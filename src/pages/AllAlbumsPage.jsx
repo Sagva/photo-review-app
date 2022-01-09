@@ -34,7 +34,7 @@ const AllAlbumsPage = () => {
 
   return (
     <div>
-      <h3 className="my-4">Allalbums page</h3>
+      <h3 className="my-4">All albums page</h3>
 
       <Button variant="secondary" onClick={handleClick}>
         Create New Album

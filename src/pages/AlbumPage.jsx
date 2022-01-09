@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
-
 import useAlbum from "../hooks/UseAlbum";
 import ImageGrid from "../components/ImageGid";
 import UploadPhotoDropzone from "../components/UploadPhotoDropzone";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { Button, Container, FormControl, InputGroup } from "react-bootstrap";
+import { SRLWrapper } from "simple-react-lightbox";
 
 const AlbumPage = () => {
   const { id } = useParams();
@@ -23,7 +23,7 @@ const AlbumPage = () => {
     });
     setNewAlbumName("");
   };
-  
+
   return (
     <div>
       {album.isLoading && <p>Loading...</p>}
@@ -62,7 +62,9 @@ const AlbumPage = () => {
           </Container>
           <UploadPhotoDropzone albumId={id} />
 
-          <ImageGrid urls={album.data.data().photos} />
+          <SRLWrapper>
+            <ImageGrid urls={album.data.data().photos} />
+          </SRLWrapper>
         </div>
       )}
     </div>

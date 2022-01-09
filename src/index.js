@@ -6,6 +6,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import AuthContextProvider from "./contexts/AuthContext";
 import { QueryClient, QueryClientProvider } from "react-query";
+import SimpleReactLightbox from "simple-react-lightbox";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,7 +23,9 @@ ReactDOM.render(
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthContextProvider>
-          <App />
+          <SimpleReactLightbox>
+            <App />
+          </SimpleReactLightbox>
         </AuthContextProvider>
       </BrowserRouter>
     </QueryClientProvider>
