@@ -13,8 +13,6 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
 const useUploadPhoto = (albumId) => {
-  console.log(`albumid`, albumId);
-
   const [error, setError] = useState(null);
   const [isError, setIsError] = useState(null);
   const [isMutating, setIsMutating] = useState(null);
@@ -74,6 +72,7 @@ const useUploadPhoto = (albumId) => {
       await addDoc(collectionRef, {
         path: storageRef.fullPath,
         url,
+        photoId: uuid,
         created: serverTimestamp(),
       });
 
@@ -81,7 +80,7 @@ const useUploadPhoto = (albumId) => {
       const refToAlbum = doc(db, "albums", albumId);
 
       await updateDoc(refToAlbum, {
-        photos: arrayUnion(uuid),
+        photos: arrayUnion(url),
       });
 
       setIsMutating(false);

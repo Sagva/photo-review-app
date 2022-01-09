@@ -32,9 +32,7 @@ const AllAlbumsPage = () => {
     navigate(`/album/${newAlbum.id}`);
   };
 
-  useEffect(() => {
-    console.log(`data`, data);
-  }, [data]);
+  
   return (
     <div>
       <h3 className="my-4">Allalbums page</h3>

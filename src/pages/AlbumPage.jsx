@@ -1,13 +1,24 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import useUploadPhoto from "../hooks/useUploadPhoto";
 import { Alert } from "react-bootstrap";
 import ProgressBar from "react-bootstrap/ProgressBar";
+import useAlbum from "../hooks/UseAlbum";
 
 const AlbumPage = () => {
   const { id } = useParams();
 
+  const album = useAlbum(id);
+
+  useEffect(() => {
+    if (album.isSuccess) {
+      console.log(`album`, album);
+      console.log(`album.data,photos`, album.data.data().photos);
+    }
+  }, [album]);
+
+  // upload a new photo
   const uploadPhoto = useUploadPhoto(id);
   const onDrop = useCallback(async (acceptedFiles) => {
     if (!acceptedFiles.length) {
@@ -15,6 +26,7 @@ const AlbumPage = () => {
     }
 
     uploadPhoto.mutate(acceptedFiles[0]);
+    album.refetch()
   }, []);
 
   const {
@@ -29,7 +41,6 @@ const AlbumPage = () => {
     onDrop,
   });
 
- 
   return (
     <div>
       <h1>{`album ${id}`}</h1>
