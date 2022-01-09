@@ -9,14 +9,14 @@ import { useFirestoreQueryData } from "@react-query-firebase/firestore";
 const AllAlbumsPage = () => {
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
-
+  console.log(`currentUser`, currentUser.uid);
   const queryRef = query(
     collection(db, "albums"),
     where("owner", "==", currentUser.uid)
   );
 
   const { data, isLoading } = useFirestoreQueryData(
-    ["albums"],
+    ["albums", currentUser.uid],
     queryRef,
     { idField: "id", subscribe: true },
     { fetchOnMount: "always" }
@@ -32,7 +32,6 @@ const AllAlbumsPage = () => {
     navigate(`/album/${newAlbum.id}`);
   };
 
-  
   return (
     <div>
       <h3 className="my-4">Allalbums page</h3>
