@@ -33,3 +33,18 @@
 .btnChangeAlbumName:hover {
   background-color: #96247d;
 }
+
+.ImageBox {
+  position: relative;
+}
+.chosen {
+  border: 5px solid green;
+}
+.not-chosen {
+  border: 5px solid transparent;
+}
+.chosePhotoCheckbox {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}

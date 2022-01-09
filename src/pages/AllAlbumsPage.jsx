@@ -49,7 +49,11 @@ const AllAlbumsPage = () => {
                 return (
                   <Card
                     key={album.id}
-                    style={{ width: "18rem", height: "6rem" }}
+                    style={{
+                      width: "18rem",
+                      height: "6rem",
+                      cursor: "pointer",
+                    }}
                     className="mx-3 my-3"
                     onClick={() => navigate(`/album/${album.id}`)}
                   >
