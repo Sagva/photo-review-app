@@ -2,7 +2,6 @@ import React from "react";
 import { Col, Row } from "react-bootstrap";
 
 const ImageGrid = ({ urls }) => {
-  console.log(`urls`, urls);
   return (
     <Row xs={1} sm={2} md={3} lg={4} className="mx-2">
       {urls &&

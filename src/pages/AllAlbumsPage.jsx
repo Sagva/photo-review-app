@@ -54,7 +54,7 @@ const AllAlbumsPage = () => {
                     onClick={() => navigate(`/album/${album.id}`)}
                   >
                     <Card.Body>
-                      <Card.Title>{album.id}</Card.Title>
+                      <Card.Title>{album.name}</Card.Title>
                     </Card.Body>
                   </Card>
                 );

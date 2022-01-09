@@ -23,3 +23,13 @@
   border-color: #f5c6cb;
   color: #721c24;
 }
+
+.btnChangeAlbumName {
+  height: 30px;
+  border-radius: 5px;
+  background-color: #a36795;
+}
+
+.btnChangeAlbumName:hover {
+  background-color: #96247d;
+}
