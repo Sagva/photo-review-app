@@ -41,11 +41,14 @@
   width: auto;
   height: auto;
 }
-.chosen {
+.image {
+  border: 5px solid transparent;
+}
+.image.chosen {
   border: 5px solid green;
 }
-.not-chosen {
-  border: 5px solid transparent;
+.image.disliked {
+  border: 5px solid red;
 }
 .chosePhotoCheckbox {
   position: absolute;
