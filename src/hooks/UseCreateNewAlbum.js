@@ -1,16 +1,16 @@
 import { addDoc, collection } from "firebase/firestore";
-import { useAuthContext } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
-const UseCreateNewAlbum = (photos) => {
+const UseCreateNewAlbum = () => {
   const navigate = useNavigate();
-  const { currentUser } = useAuthContext();
 
-  const createNewAlbum = async (photos) => {
+  const createNewAlbum = async (name, photos, ownerID) => {
+    console.log(`photos`, photos);
+    console.log(`ownerID`, ownerID);
     const newAlbum = await addDoc(collection(db, "albums"), {
-      name: "New album",
-      owner: currentUser.uid,
+      name: name,
+      owner: ownerID,
       photos: photos,
     });
 

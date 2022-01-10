@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -9,6 +9,8 @@ import { useAuthContext } from "../contexts/AuthContext";
 
 const Navigation = () => {
   const { currentUser } = useAuthContext();
+  const location = useLocation();
+  console.log(`location.pathname`, location.pathname.includes("/album/"));
   return (
     <Navbar bg="dark" variant="dark" expand="md">
       <Container>
@@ -23,26 +25,35 @@ const Navigation = () => {
             <NavLink to={`/`} className="nav-link">
               Home
             </NavLink>
-            {currentUser ? (
-              <>
-                <NavLink to={`/all-albums`} className="nav-link">
-                  All albums
-                </NavLink>
-
-                <NavDropdown title={currentUser.email} id="basic-nav-dropdown">
-                  <NavLink to={`/logout`} className="dropdown-item">
-                    Log Out
-                  </NavLink>
-                </NavDropdown>
-              </>
+            {location.pathname.includes("/album/") && !currentUser ? (
+              <></>
             ) : (
               <>
-                <NavLink to={`/login`} className="nav-link">
-                  Login
-                </NavLink>
-                <NavLink to={`/signup`} className="nav-link">
-                  Signup
-                </NavLink>
+                {currentUser ? (
+                  <>
+                    <NavLink to={`/all-albums`} className="nav-link">
+                      All albums
+                    </NavLink>
+
+                    <NavDropdown
+                      title={currentUser.email}
+                      id="basic-nav-dropdown"
+                    >
+                      <NavLink to={`/logout`} className="dropdown-item">
+                        Log Out
+                      </NavLink>
+                    </NavDropdown>
+                  </>
+                ) : (
+                  <>
+                    <NavLink to={`/login`} className="nav-link">
+                      Login
+                    </NavLink>
+                    <NavLink to={`/signup`} className="nav-link">
+                      Signup
+                    </NavLink>
+                  </>
+                )}
               </>
             )}
           </Nav>

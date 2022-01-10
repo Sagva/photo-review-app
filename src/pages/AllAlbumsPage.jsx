@@ -25,12 +25,14 @@ const AllAlbumsPage = () => {
     { refetchOnMount: "always" }
   );
 
-  
   return (
     <div>
       <h3 className="my-4">All albums page</h3>
 
-      <Button variant="secondary" onClick={() => createNewAlbum([])}>
+      <Button
+        variant="secondary"
+        onClick={() => createNewAlbum("New Album", [], currentUser.uid)}
+      >
         Create New Album
       </Button>
 

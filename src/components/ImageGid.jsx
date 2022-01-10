@@ -1,10 +1,11 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
+import { useAuthContext } from "../contexts/AuthContext";
 import UseCreateNewAlbum from "../hooks/UseCreateNewAlbum";
 
 const ImageGrid = ({ urls }) => {
   const [chosenPhotos, setChosenPhotos] = useState([]);
-
+  const { currentUser } = useAuthContext();
   const createNewAlbum = UseCreateNewAlbum();
 
   const toggleChosenPhoto = (photosUrl) => {
@@ -53,7 +54,13 @@ const ImageGrid = ({ urls }) => {
       <Button
         variant="secondary"
         style={{ display: chosenPhotos.length ? "block" : "none" }}
-        onClick={() => createNewAlbum(chosenPhotos)}
+        onClick={() =>
+          createNewAlbum(
+            "New album",
+            chosenPhotos,
+            "here should be photographer's id"
+          )
+        }
         className="my-5"
       >
         Create new album
