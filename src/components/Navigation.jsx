@@ -10,7 +10,7 @@ import { useAuthContext } from "../contexts/AuthContext";
 const Navigation = () => {
   const { currentUser } = useAuthContext();
   const location = useLocation();
-  console.log(`location.pathname`, location.pathname.includes("/album/"));
+
   return (
     <Navbar bg="dark" variant="dark" expand="md">
       <Container>

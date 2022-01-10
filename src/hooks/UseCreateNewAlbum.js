@@ -6,8 +6,6 @@ const UseCreateNewAlbum = () => {
   const navigate = useNavigate();
 
   const createNewAlbum = async (name, photos, ownerID) => {
-    console.log(`photos`, photos);
-    console.log(`ownerID`, ownerID);
     const newAlbum = await addDoc(collection(db, "albums"), {
       name: name,
       owner: ownerID,

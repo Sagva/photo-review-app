@@ -9,6 +9,7 @@ import { Button, Container, FormControl, InputGroup } from "react-bootstrap";
 import { SRLWrapper } from "simple-react-lightbox";
 import ReactTooltip from "react-tooltip";
 import { useAuthContext } from "../contexts/AuthContext";
+import ModalWindow from "../components/ModalWindow";
 
 const AlbumPage = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const AlbumPage = () => {
   const album = useAlbum(id);
   const [showInputGroup, setShowInputGroup] = useState(false);
   const [newAlbumName, setNewAlbumName] = useState("");
-
+  const [showModal, setShowModal] = useState(false);
   const ref = doc(db, "albums", id);
 
   const changeAlbumName = async () => {
@@ -26,11 +27,20 @@ const AlbumPage = () => {
     setNewAlbumName("");
   };
 
+  const shareAlbum = () => {
+    setShowModal(true);
+  };
+  let modalValues = {
+    booleanValue: showModal,
+    toggleBoolean: setShowModal,
+    link: `/album/${id}`
+  };
   return (
     <div>
       {album.isLoading && <p>Loading...</p>}
       {album.isSuccess && (
         <div>
+          <ModalWindow modalValues={modalValues} />
           <div className="d-flex justify-content-center align-items-center mt-3">
             <h1 className="mx-3">{album.data.data().name}</h1>
             {currentUser && (
@@ -47,6 +57,7 @@ const AlbumPage = () => {
                 <button
                   className="btn-album"
                   data-tip="Create a link to the album"
+                  onClick={() => shareAlbum()}
                 >
                   🔗
                 </button>
@@ -54,7 +65,7 @@ const AlbumPage = () => {
               </div>
             )}
           </div>
-          
+
           <Container
             style={{
               display: showInputGroup ? "block" : "none",

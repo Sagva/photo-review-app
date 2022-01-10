@@ -12,7 +12,6 @@ const AllAlbumsPage = () => {
   const createNewAlbum = UseCreateNewAlbum();
   const navigate = useNavigate();
 
-  console.log(`currentUser`, currentUser.uid);
   const queryRef = query(
     collection(db, "albums"),
     where("owner", "==", currentUser.uid)
