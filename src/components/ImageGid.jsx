@@ -5,12 +5,22 @@ import UseCreateNewAlbum from "../hooks/UseCreateNewAlbum";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import ModalWindow from "./ModalWindow";
 
-const ImageGrid = ({ urls }) => {
+const ImageGrid = ({ album }) => {
+  const urls = album.data.data().photos;
   const [chosenPhotos, setChosenPhotos] = useState([]);
   const [photosToDelete, setPhotosToDelete] = useState([]);
+  const [isAllPhotosMarked, setIsAllPhotosMarked] = useState(false);
   const { currentUser } = useAuthContext();
   const createNewAlbum = UseCreateNewAlbum();
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    setIsAllPhotosMarked(
+      urls.length - (chosenPhotos.length + photosToDelete.length) === 0
+    );
+  }, [urls, chosenPhotos, photosToDelete]);
 
   const toggleChosenPhoto = (photosUrl) => {
     if (chosenPhotos.includes(photosUrl)) {
@@ -30,8 +40,28 @@ const ImageGrid = ({ urls }) => {
     }
   };
 
+  const sendToPhotographer = () => {
+    setShowModal(true);
+    const timeAndDate = new Date().toLocaleTimeString();
+
+    let name = `${album.data.data().name}_${timeAndDate}`;
+    createNewAlbum(name, chosenPhotos, album.data.data().owner);
+  };
+  const modalValues = {
+    booleanValue: showModal,
+    toggleBoolean: setShowModal,
+    message: {
+      title: "",
+      text: `Thank you! Your photos have been send!`,
+    },
+  };
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
+      {!currentUser && !isAllPhotosMarked && (
+        <p>
+          Please mark all photos before sending the album to the photographer
+        </p>
+      )}
       <Row xs={1} sm={2} md={3} lg={4} className="mx-2 justify-content-center">
         {urls &&
           urls.map((url) => (
@@ -63,12 +93,24 @@ const ImageGrid = ({ urls }) => {
                   />
                 )}
                 {!currentUser && (
-                  <div className="mt-3">
-                    <button onClick={() => toggleChosenPhoto(url)}>
-                      <FontAwesomeIcon icon={faThumbsUp} />
+                  <div className="mt-1">
+                    <button
+                      onClick={() => toggleChosenPhoto(url)}
+                      className="mx-2 btn-thumbs like"
+                    >
+                      <FontAwesomeIcon
+                        icon={faThumbsUp}
+                        className="faThumbsUp"
+                      />
                     </button>
-                    <button onClick={() => toggleDislikePhoto(url)}>
-                      <FontAwesomeIcon icon={faThumbsDown} />
+                    <button
+                      onClick={() => toggleDislikePhoto(url)}
+                      className="btn-thumbs dislike"
+                    >
+                      <FontAwesomeIcon
+                        icon={faThumbsDown}
+                        className="faThumbsDown"
+                      />
                     </button>
                   </div>
                 )}
@@ -76,6 +118,28 @@ const ImageGrid = ({ urls }) => {
             </Col>
           ))}
       </Row>
+
+      {!currentUser && (
+        <div>
+          <div>
+            Photo to keep: <span>{chosenPhotos.length}</span>
+          </div>
+          <div>
+            Photo to delete: <span>{photosToDelete.length}</span>
+          </div>
+          {!isAllPhotosMarked && (
+            <div>
+              Not determined:{" "}
+              <span>
+                {urls.length - (chosenPhotos.length + photosToDelete.length)}
+              </span>
+            </div>
+          )}
+          <div className="mt-3" style={{ borderTop: "1px solid black" }}>
+            Total photos: <span>{urls.length}</span>
+          </div>
+        </div>
+      )}
       {currentUser ? (
         <Button
           variant="secondary"
@@ -92,20 +156,17 @@ const ImageGrid = ({ urls }) => {
           Create new album
         </Button>
       ) : (
-        <Button
-          variant="secondary"
-          // style={{ display: chosenPhotos.length ? "block" : "none" }}
-          onClick={() =>
-            createNewAlbum(
-              "New album",
-              chosenPhotos,
-              "here should be photographer's id"
-            )
-          }
-          className="my-5"
-        >
-          Send to Photographer
-        </Button>
+        <div>
+          <Button
+            variant="secondary"
+            onClick={() => sendToPhotographer()}
+            className="my-5"
+            disabled={!isAllPhotosMarked}
+          >
+            Send to Photographer
+          </Button>
+          <ModalWindow modalValues={modalValues} />
+        </div>
       )}
     </div>
   );

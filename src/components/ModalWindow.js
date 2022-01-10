@@ -3,7 +3,7 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 
 function ModalWindow(props) {
-  const { booleanValue, toggleBoolean, link } = props.modalValues;
+  const { booleanValue, toggleBoolean, message } = props.modalValues;
 
   const handleClick = () => {
     toggleBoolean(false);
@@ -16,8 +16,8 @@ function ModalWindow(props) {
         animation={false}
       >
         <Modal.Body>
-          <h5>Link to the album:</h5>
-          <p>{link}</p>
+          <h5>{message.title}</h5>
+          <p>{message.text}</p>
         </Modal.Body>
 
         <Modal.Footer>

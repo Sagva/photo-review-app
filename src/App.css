@@ -55,3 +55,17 @@
   top: 15px;
   right: 15px;
 }
+.btn-thumbs {
+  border-radius: 5px;
+  border: none;
+}
+.faThumbsUp,
+.faThumbsDown {
+  color: gray;
+}
+.btn-thumbs:hover .faThumbsUp {
+  color: green;
+}
+.btn-thumbs:hover .faThumbsDown {
+  color: red;
+}

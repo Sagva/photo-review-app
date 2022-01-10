@@ -33,8 +33,12 @@ const AlbumPage = () => {
   let modalValues = {
     booleanValue: showModal,
     toggleBoolean: setShowModal,
-    link: `/album/${id}`
+    message: {
+      title: "Link to the album:",
+      text: `/album/${id}`,
+    },
   };
+
   return (
     <div>
       {album.isLoading && <p>Loading...</p>}
@@ -91,7 +95,7 @@ const AlbumPage = () => {
           {currentUser && <UploadPhotoDropzone albumId={id} />}
 
           <SRLWrapper>
-            <ImageGrid urls={album.data.data().photos} />
+            <ImageGrid album={album} />
           </SRLWrapper>
         </div>
       )}

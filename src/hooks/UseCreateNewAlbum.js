@@ -1,8 +1,10 @@
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../contexts/AuthContext";
 
 const UseCreateNewAlbum = () => {
+  const { currentUser } = useAuthContext();
   const navigate = useNavigate();
 
   const createNewAlbum = async (name, photos, ownerID) => {
@@ -12,7 +14,9 @@ const UseCreateNewAlbum = () => {
       photos: photos,
     });
 
-    navigate(`/album/${newAlbum.id}`);
+    if (currentUser) {
+      navigate(`/album/${newAlbum.id}`);
+    }
   };
 
   return createNewAlbum;
