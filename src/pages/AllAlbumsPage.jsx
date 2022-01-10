@@ -5,10 +5,13 @@ import { db } from "../firebase";
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useFirestoreQueryData } from "@react-query-firebase/firestore";
+import UseCreateNewAlbum from "../hooks/UseCreateNewAlbum";
 
 const AllAlbumsPage = () => {
   const { currentUser } = useAuthContext();
+  const createNewAlbum = UseCreateNewAlbum();
   const navigate = useNavigate();
+
   console.log(`currentUser`, currentUser.uid);
   const queryRef = query(
     collection(db, "albums"),
@@ -19,24 +22,15 @@ const AllAlbumsPage = () => {
     ["albums", currentUser.uid],
     queryRef,
     { idField: "id", subscribe: true },
-    { fetchOnMount: "always" }
+    { refetchOnMount: "always" }
   );
 
-  const handleClick = async () => {
-    const newAlbum = await addDoc(collection(db, "albums"), {
-      name: "New album",
-      owner: currentUser.uid,
-      photos: [],
-    });
-
-    navigate(`/album/${newAlbum.id}`);
-  };
-
+  
   return (
     <div>
       <h3 className="my-4">All albums page</h3>
 
-      <Button variant="secondary" onClick={handleClick}>
+      <Button variant="secondary" onClick={() => createNewAlbum([])}>
         Create New Album
       </Button>
 

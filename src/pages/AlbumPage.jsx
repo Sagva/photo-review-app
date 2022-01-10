@@ -7,6 +7,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { Button, Container, FormControl, InputGroup } from "react-bootstrap";
 import { SRLWrapper } from "simple-react-lightbox";
+import ReactTooltip from "react-tooltip";
 
 const AlbumPage = () => {
   const { id } = useParams();
@@ -32,11 +33,18 @@ const AlbumPage = () => {
           <div className="d-flex justify-content-center align-items-center mt-3">
             <h1 className="mx-3">{album.data.data().name}</h1>
             <button
-              className="btnChangeAlbumName"
+              className="btn-album"
               onClick={() => setShowInputGroup(!showInputGroup)}
+              data-tip="Change album's name"
             >
               🖊
             </button>
+
+            <ReactTooltip place="bottom" type="dark" effect="float" />
+            <button className="btn-album" data-tip="Create a link to the album">
+              🔗
+            </button>
+            <ReactTooltip place="bottom" type="dark" effect="float" />
           </div>
           <Container
             style={{
