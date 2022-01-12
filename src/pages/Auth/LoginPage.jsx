@@ -27,7 +27,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="heigh100vh">
+    <div className="mt-5">
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Card>

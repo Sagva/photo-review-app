@@ -46,6 +46,8 @@ const ImageGrid = ({ album }) => {
 
     let name = `${album.data.data().name}_${timeAndDate}`;
     createNewAlbum(name, chosenPhotos, album.data.data().owner);
+    setIsAllPhotosMarked(false)
+    
   };
   const modalValues = {
     booleanValue: showModal,
@@ -145,11 +147,7 @@ const ImageGrid = ({ album }) => {
           variant="secondary"
           style={{ display: chosenPhotos.length ? "block" : "none" }}
           onClick={() =>
-            createNewAlbum(
-              "New album",
-              chosenPhotos,
-              "here should be photographer's id"
-            )
+            createNewAlbum("New album", chosenPhotos, album.data.data().owner)
           }
           className="my-5"
         >

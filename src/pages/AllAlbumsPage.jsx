@@ -60,7 +60,7 @@ const AllAlbumsPage = () => {
               })}
             </div>
           ) : (
-            <p>You don't have any albums yet</p>
+            <p className="mt-3">You don't have any albums yet</p>
           )}
         </>
       )}

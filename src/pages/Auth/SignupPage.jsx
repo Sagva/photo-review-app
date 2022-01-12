@@ -34,7 +34,7 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="heigh100vh">
+    <div className="mt-5">
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Card>
@@ -75,7 +75,7 @@ const SignupPage = () => {
           </Card>
 
           <div className="text-center mt-3">
-            Already have an account? <Link to={`//login`}>Log In</Link>
+            Already have an account? <Link to={`/login`}>Log In</Link>
           </div>
         </Col>
       </Row>

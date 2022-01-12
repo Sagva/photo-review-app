@@ -22,9 +22,6 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <NavLink to={`/`} className="nav-link">
-              Home
-            </NavLink>
             {location.pathname.includes("/album/") && !currentUser ? (
               <></>
             ) : (

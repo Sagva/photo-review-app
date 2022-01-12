@@ -16,7 +16,7 @@ const UseCreateNewAlbum = () => {
 
     if (currentUser) {
       navigate(`/album/${newAlbum.id}`);
-    }
+    } 
   };
 
   return createNewAlbum;
