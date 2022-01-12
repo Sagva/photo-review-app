@@ -23,7 +23,18 @@
   border-color: #f5c6cb;
   color: #721c24;
 }
+.card {
+  border-radius: 10px;
 
+  background: linear-gradient(
+    to right bottom,
+    rgb(255, 255, 255) 0%,
+    rgb(233, 217, 230) 100%
+  );
+}
+.card:hover {
+  background: rgb(233, 217, 230);
+}
 .btn-album {
   height: 30px;
   border-radius: 5px;

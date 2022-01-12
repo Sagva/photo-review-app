@@ -41,7 +41,7 @@ const AllAlbumsPage = () => {
                     className="mx-3 my-3"
                     onClick={() => navigate(`/album/${album.id}`)}
                   >
-                    <Card.Body>
+                    <Card.Body className="album-card">
                       <Card.Title>{album.name}</Card.Title>
                     </Card.Body>
                   </Card>
