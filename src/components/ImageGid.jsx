@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import { useAuthContext } from "../contexts/AuthContext";
-import UseCreateNewAlbum from "../hooks/UseCreateNewAlbum";
+import useCreateNewAlbum from "../hooks/useCreateNewAlbum";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
@@ -10,7 +10,7 @@ import useToggleImage from "../hooks/useToggleImage";
 
 const ImageGrid = ({ album }) => {
   const urls = album.data.data().photos;
-  const createNewAlbum = UseCreateNewAlbum();
+  const createNewAlbum = useCreateNewAlbum();
 
   const { currentUser } = useAuthContext();
 
@@ -25,6 +25,8 @@ const ImageGrid = ({ album }) => {
     photosToDelete,
     toggleChosenPhoto,
     toggleDislikePhoto,
+    setChosenPhotos,
+    setPhotosToDelete,
   } = useToggleImage();
 
   // to check if the client marked all photos before send them to the photographer
@@ -42,6 +44,8 @@ const ImageGrid = ({ album }) => {
     let name = `${album.data.data().name}_${timeAndDate}`;
     createNewAlbum(name, chosenPhotos, album.data.data().owner);
     setIsAllPhotosMarked(false);
+    setChosenPhotos([]);
+    setPhotosToDelete([]);
   };
 
   //Values for modal window that opens after the client marked all photos and pressed the button 'Send to photographer'
@@ -70,7 +74,7 @@ const ImageGrid = ({ album }) => {
             >
               <div className="ImageBox">
                 {/* adding class for img 'chosen' or 'disliked' depending on in which array the photos url is */}
-                <img 
+                <img
                   className={`image ${
                     chosenPhotos.includes(url) ? "chosen" : ""
                   } ${photosToDelete.includes(url) ? "disliked" : ""}`}
@@ -122,7 +126,7 @@ const ImageGrid = ({ album }) => {
           ))}
       </Row>
 
-        {/* Information for clients (not logged in users) about how many photos left to evaluate and how many photos they liked or disliked  */}
+      {/* Information for clients (not logged in users) about how many photos left to evaluate and how many photos they liked or disliked  */}
       {!currentUser && (
         <div>
           <div>
@@ -158,7 +162,6 @@ const ImageGrid = ({ album }) => {
           Create new album
         </Button>
       ) : (
-
         // for clients renders buttonfor sending chosen photos to the photographer
         <div>
           <Button

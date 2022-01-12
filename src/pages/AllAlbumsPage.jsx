@@ -1,17 +1,16 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
-
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import UseCreateNewAlbum from "../hooks/UseCreateNewAlbum";
+import useCreateNewAlbum from "../hooks/useCreateNewAlbum";
 import useAllAlbums from "../hooks/useAllAlbums";
 
 const AllAlbumsPage = () => {
   const { currentUser } = useAuthContext();
-  const createNewAlbum = UseCreateNewAlbum();
+  const createNewAlbum = useCreateNewAlbum();
   const navigate = useNavigate();
 
-  const { data, isLoading } = useAllAlbums();
+  const { data, isLoading } = useAllAlbums(); // fetching all albums from db
 
   return (
     <div>
@@ -19,6 +18,8 @@ const AllAlbumsPage = () => {
 
       <Button
         variant="secondary"
+        // function creates a new album with given name, photos and owner
+        // every album has the same name 'New album'
         onClick={() => createNewAlbum("New Album", [], currentUser.uid)}
       >
         Create New Album
@@ -32,13 +33,8 @@ const AllAlbumsPage = () => {
               {data.map((album) => {
                 return (
                   <Card
+                    className="album-card mx-3 my-3"
                     key={album.id}
-                    style={{
-                      width: "18rem",
-                      height: "6rem",
-                      cursor: "pointer",
-                    }}
-                    className="mx-3 my-3"
                     onClick={() => navigate(`/album/${album.id}`)}
                   >
                     <Card.Body className="album-card">

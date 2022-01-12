@@ -23,16 +23,18 @@
   border-color: #f5c6cb;
   color: #721c24;
 }
-.card {
+.album-card {
   border-radius: 10px;
-
+  width: 18rem;
+  height: 6rem;
+  cursor: "pointer";
   background: linear-gradient(
     to right bottom,
     rgb(255, 255, 255) 0%,
     rgb(233, 217, 230) 100%
   );
 }
-.card:hover {
+.album-card:hover {
   background: rgb(233, 217, 230);
 }
 .btn-album {

@@ -3,7 +3,7 @@ import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
 
-const UseCreateNewAlbum = () => {
+const useCreateNewAlbum = () => {
   const { currentUser } = useAuthContext();
   const navigate = useNavigate();
 
@@ -23,4 +23,4 @@ const UseCreateNewAlbum = () => {
   return createNewAlbum;
 };
 
-export default UseCreateNewAlbum;
+export default useCreateNewAlbum;
