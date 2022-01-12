@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import useAlbum from "../hooks/UseAlbum";
+import useAlbum from "../hooks/useAlbum";
 import ImageGrid from "../components/ImageGid";
 import UploadPhotoDropzone from "../components/UploadPhotoDropzone";
 import { doc, updateDoc } from "firebase/firestore";
@@ -15,11 +15,15 @@ const AlbumPage = () => {
   const { id } = useParams();
   const { currentUser } = useAuthContext();
   const album = useAlbum(id);
-  const [showInputGroup, setShowInputGroup] = useState(false);
+  const [showInputGroup, setShowInputGroup] = useState(false); // input field shows when the user preses button 'change album's name'
   const [newAlbumName, setNewAlbumName] = useState("");
   const [showModal, setShowModal] = useState(false);
+
+  //for changing album's name
+  //1. create reference to document
   const ref = doc(db, "albums", id);
 
+  //2. update document
   const changeAlbumName = async () => {
     await updateDoc(ref, {
       name: newAlbumName,
@@ -27,6 +31,7 @@ const AlbumPage = () => {
     setNewAlbumName("");
   };
 
+  // when the user presses 'Create link' button, opens modal winow with link to that album
   const shareAlbum = () => {
     setShowModal(true);
   };
@@ -69,7 +74,7 @@ const AlbumPage = () => {
               </div>
             )}
           </div>
-
+          {/* this container with input field shows when the user preses button 'change album's name' */}
           <Container
             style={{
               display: showInputGroup ? "block" : "none",
@@ -92,6 +97,8 @@ const AlbumPage = () => {
               </Button>
             </InputGroup>
           </Container>
+
+          {/* Dropzone for uploading photos shows only for logged in users (photographers) */}
           {currentUser && <UploadPhotoDropzone albumId={id} />}
 
           <SRLWrapper>
