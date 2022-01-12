@@ -19,7 +19,7 @@ const LoginPage = () => {
     try {
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate(`/`);
+      navigate(`/all-albums`);
     } catch (e) {
       setError(e.message);
       setLoading(false);
@@ -28,6 +28,8 @@ const LoginPage = () => {
 
   return (
     <div className="mt-5">
+      <h3>Welcome to Photo-review App</h3>
+      <p>Please login or sign up to create albums and upload photos</p>
       <Row>
         <Col md={{ span: 6, offset: 3 }}>
           <Card>

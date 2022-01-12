@@ -1,5 +1,4 @@
 import "./App.css";
-import Home from "./pages/Home";
 import { Route, Routes } from "react-router-dom";
 import SignupPage from "./pages/Auth/SignupPage";
 import LoginPage from "./pages/Auth/LoginPage";
@@ -8,13 +7,13 @@ import ForgotPasswordPage from "./pages/Auth/ForgotPasswordPage";
 import Navigation from "./components/Navigation";
 import AllAlbumsPage from "./pages/AllAlbumsPage";
 import AlbumPage from "./pages/AlbumPage";
+import PageNotFound from "./pages/PageNotFound";
 function App() {
   return (
     <div className="App">
       <Navigation />
 
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path={`/login`} element={<LoginPage />} />
         <Route path={`/logout`} element={<LogoutPage />} />
@@ -22,6 +21,7 @@ function App() {
         <Route path={`/forgot-password`} element={<ForgotPasswordPage />} />
         <Route path={`/all-albums`} element={<AllAlbumsPage />} />
         <Route path={`/album/:id`} element={<AlbumPage />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
   );

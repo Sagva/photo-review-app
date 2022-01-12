@@ -26,7 +26,7 @@ const SignupPage = () => {
     try {
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
-      navigate(`/`);
+      navigate(`/all-albums`);
     } catch (e) {
       setError(e.message);
       setLoading(false);

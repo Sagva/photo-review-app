@@ -14,7 +14,10 @@ const Navigation = () => {
   return (
     <Navbar bg="dark" variant="dark" expand="md">
       <Container>
-        <Link to={`/`} className="navbar-brand">
+        <Link
+          to={currentUser ? `/all-albums` : `/login`}
+          className="navbar-brand"
+        >
           <img src={photo} alt="Logo" style={{ width: 30 }} className="mx-2" />
           Photo-Review App
         </Link>
