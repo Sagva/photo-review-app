@@ -1,32 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button, Card } from "react-bootstrap";
-import { addDoc, collection, query, where } from "firebase/firestore";
-import { db } from "../firebase";
+
 import { useAuthContext } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { useFirestoreQueryData } from "@react-query-firebase/firestore";
 import UseCreateNewAlbum from "../hooks/UseCreateNewAlbum";
+import useAllAlbums from "../hooks/useAllAlbums";
 
 const AllAlbumsPage = () => {
   const { currentUser } = useAuthContext();
   const createNewAlbum = UseCreateNewAlbum();
   const navigate = useNavigate();
 
-  const queryRef = query(
-    collection(db, "albums"),
-    where("owner", "==", currentUser.uid)
-  );
-
-  const { data, isLoading } = useFirestoreQueryData(
-    ["albums", currentUser.uid],
-    queryRef,
-    { idField: "id", subscribe: true },
-    { refetchOnMount: "always" }
-  );
+  const { data, isLoading } = useAllAlbums();
 
   return (
     <div>
-      <h3 className="my-4">All albums page</h3>
+      <h3 className="my-4">Your albums</h3>
 
       <Button
         variant="secondary"

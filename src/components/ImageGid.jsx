@@ -6,39 +6,34 @@ import UseCreateNewAlbum from "../hooks/UseCreateNewAlbum";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faThumbsUp, faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import ModalWindow from "./ModalWindow";
+import useToggleImage from "../hooks/useToggleImage";
 
 const ImageGrid = ({ album }) => {
   const urls = album.data.data().photos;
-  const [chosenPhotos, setChosenPhotos] = useState([]);
-  const [photosToDelete, setPhotosToDelete] = useState([]);
-  const [isAllPhotosMarked, setIsAllPhotosMarked] = useState(false);
-  const { currentUser } = useAuthContext();
   const createNewAlbum = UseCreateNewAlbum();
+
+  const { currentUser } = useAuthContext();
+
+  const [isAllPhotosMarked, setIsAllPhotosMarked] = useState(false);
+
   const [showModal, setShowModal] = useState(false);
 
+  // for choosing photos for both the photographer (for adding to a new album)
+  // and for the client (marking before sending to the photographer)
+  const {
+    chosenPhotos,
+    photosToDelete,
+    toggleChosenPhoto,
+    toggleDislikePhoto,
+  } = useToggleImage();
+
+  // to check if the client marked all photos before send them to the photographer
+  //button 'Send to Photographer' will be disabled untill all photos are marked
   useEffect(() => {
     setIsAllPhotosMarked(
       urls.length - (chosenPhotos.length + photosToDelete.length) === 0
     );
   }, [urls, chosenPhotos, photosToDelete]);
-
-  const toggleChosenPhoto = (photosUrl) => {
-    if (chosenPhotos.includes(photosUrl)) {
-      setChosenPhotos(chosenPhotos.filter((url) => url !== photosUrl));
-    } else if (!chosenPhotos.includes("photosUrl")) {
-      setChosenPhotos([...chosenPhotos, photosUrl]);
-      setPhotosToDelete(photosToDelete.filter((url) => url !== photosUrl));
-    }
-  };
-
-  const toggleDislikePhoto = (photosUrl) => {
-    if (photosToDelete.includes(photosUrl)) {
-      setPhotosToDelete(photosToDelete.filter((url) => url !== photosUrl));
-    } else if (!photosToDelete.includes("photosUrl")) {
-      setPhotosToDelete([...photosToDelete, photosUrl]);
-      setChosenPhotos(chosenPhotos.filter((url) => url !== photosUrl));
-    }
-  };
 
   const sendToPhotographer = () => {
     setShowModal(true);
@@ -46,9 +41,10 @@ const ImageGrid = ({ album }) => {
 
     let name = `${album.data.data().name}_${timeAndDate}`;
     createNewAlbum(name, chosenPhotos, album.data.data().owner);
-    setIsAllPhotosMarked(false)
-    
+    setIsAllPhotosMarked(false);
   };
+
+  //Values for modal window that opens after the client marked all photos and pressed the button 'Send to photographer'
   const modalValues = {
     booleanValue: showModal,
     toggleBoolean: setShowModal,
@@ -59,6 +55,7 @@ const ImageGrid = ({ album }) => {
   };
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
+      {/* the album page is the same for the photographer and the client but it renders different elements depending on existence of the current user id  */}
       {!currentUser && !isAllPhotosMarked && (
         <p>
           Please mark all photos before sending the album to the photographer
@@ -72,7 +69,8 @@ const ImageGrid = ({ album }) => {
               className="ImageBox d-flex justify-content-center align-items-center my-4 mx-4"
             >
               <div className="ImageBox">
-                <img
+                {/* adding class for img 'chosen' or 'disliked' depending on in which array the photos url is */}
+                <img 
                   className={`image ${
                     chosenPhotos.includes(url) ? "chosen" : ""
                   } ${photosToDelete.includes(url) ? "disliked" : ""}`}
@@ -84,6 +82,8 @@ const ImageGrid = ({ album }) => {
                     cursor: "pointer",
                   }}
                 />
+
+                {/* checkboxes on photos only render for photographers */}
                 {currentUser && (
                   <input
                     className="chosePhotoCheckbox"
@@ -94,6 +94,7 @@ const ImageGrid = ({ album }) => {
                     }}
                   />
                 )}
+                {/* thumbs up and down rendrer only for clients (not logged in users) */}
                 {!currentUser && (
                   <div className="mt-1">
                     <button
@@ -121,6 +122,7 @@ const ImageGrid = ({ album }) => {
           ))}
       </Row>
 
+        {/* Information for clients (not logged in users) about how many photos left to evaluate and how many photos they liked or disliked  */}
       {!currentUser && (
         <div>
           <div>
@@ -142,6 +144,8 @@ const ImageGrid = ({ album }) => {
           </div>
         </div>
       )}
+
+      {/* for photographers renders button for creating a new album with chosen photos */}
       {currentUser ? (
         <Button
           variant="secondary"
@@ -154,6 +158,8 @@ const ImageGrid = ({ album }) => {
           Create new album
         </Button>
       ) : (
+
+        // for clients renders buttonfor sending chosen photos to the photographer
         <div>
           <Button
             variant="secondary"
