@@ -35,7 +35,7 @@ const AlbumPage = () => {
     toggleBoolean: setShowModal,
     message: {
       title: "Link to the album:",
-      text: `/album/${id}`,
+      text: `https://foto-review-app-1dfd2.web.app/album/${id}`,
     },
   };
 

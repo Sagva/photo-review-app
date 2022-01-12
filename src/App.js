@@ -8,7 +8,9 @@ import Navigation from "./components/Navigation";
 import AllAlbumsPage from "./pages/AllAlbumsPage";
 import AlbumPage from "./pages/AlbumPage";
 import PageNotFound from "./pages/PageNotFound";
+import { useAuthContext } from "./contexts/AuthContext";
 function App() {
+  const { currentUser } = useAuthContext();
   return (
     <div className="App">
       <Navigation />
@@ -21,6 +23,10 @@ function App() {
         <Route path={`/forgot-password`} element={<ForgotPasswordPage />} />
         <Route path={`/all-albums`} element={<AllAlbumsPage />} />
         <Route path={`/album/:id`} element={<AlbumPage />} />
+        <Route
+          path="/"
+          element={currentUser ? <AllAlbumsPage /> : <LoginPage />}
+        />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </div>
