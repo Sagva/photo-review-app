@@ -10,7 +10,7 @@ const LogoutPage = () => {
   useEffect(() => {
     const logoutFunc = async () => {
       await logout();
-      navigate(`/login`);
+      navigate(`${process.env.PUBLIC_URL}/login`);
     };
     logoutFunc();
   });

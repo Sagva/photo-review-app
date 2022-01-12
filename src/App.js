@@ -14,14 +14,36 @@ function App() {
       <Navigation />
 
       <Routes>
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path={`/login`} element={<LoginPage />} />
-        <Route path={`/logout`} element={<LogoutPage />} />
-        <Route path={`/logout`} element={<LogoutPage />} />
-        <Route path={`/forgot-password`} element={<ForgotPasswordPage />} />
-        <Route path={`/all-albums`} element={<AllAlbumsPage />} />
-        <Route path={`/album/:id`} element={<AlbumPage />} />
+        <Route
+          path={`${process.env.PUBLIC_URL}/signup`}
+          element={<SignupPage />}
+        />
+        <Route
+          path={`${process.env.PUBLIC_URL}/login`}
+          element={<LoginPage />}
+        />
+        <Route
+          path={`${process.env.PUBLIC_URL}/logout`}
+          element={<LogoutPage />}
+        />
+        <Route
+          path={`${process.env.PUBLIC_URL}/logout`}
+          element={<LogoutPage />}
+        />
+        <Route
+          path={`${process.env.PUBLIC_URL}/forgot-password`}
+          element={<ForgotPasswordPage />}
+        />
+        <Route
+          path={`${process.env.PUBLIC_URL}/all-albums`}
+          element={<AllAlbumsPage />}
+        />
+        <Route
+          path={`${process.env.PUBLIC_URL}/album/:id`}
+          element={<AlbumPage />}
+        />
         <Route path="*" element={<PageNotFound />} />
+        <Route path={`${process.env.PUBLIC_URL}*`} element={<PageNotFound />} />
       </Routes>
     </div>
   );

@@ -26,7 +26,7 @@ const SignupPage = () => {
     try {
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
-      navigate(`/all-albums`);
+      navigate(`${process.env.PUBLIC_URL}/all-albums`);
     } catch (e) {
       setError(e.message);
       setLoading(false);
@@ -69,13 +69,16 @@ const SignupPage = () => {
               </Form>
 
               <div className="text-center mt-3">
-                <Link to={`/forgot-password`}>Forgot Password?</Link>
+                <Link to={`${process.env.PUBLIC_URL}/forgot-password`}>
+                  Forgot Password?
+                </Link>
               </div>
             </Card.Body>
           </Card>
 
           <div className="text-center mt-3">
-            Already have an account? <Link to={`/login`}>Log In</Link>
+            Already have an account?{" "}
+            <Link to={`${process.env.PUBLIC_URL}/login`}>Log In</Link>
           </div>
         </Col>
       </Row>

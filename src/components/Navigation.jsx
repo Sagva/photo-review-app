@@ -15,7 +15,7 @@ const Navigation = () => {
     <Navbar bg="dark" variant="dark" expand="md">
       <Container>
         <Link
-          to={currentUser ? `/all-albums` : `/login`}
+          to={currentUser ? `${process.env.PUBLIC_URL}/all-albums` : `${process.env.PUBLIC_URL}/login`}
           className="navbar-brand"
         >
           <img src={photo} alt="Logo" style={{ width: 30 }} className="mx-2" />
@@ -31,7 +31,7 @@ const Navigation = () => {
               <>
                 {currentUser ? (
                   <>
-                    <NavLink to={`/all-albums`} className="nav-link">
+                    <NavLink to={`${process.env.PUBLIC_URL}/all-albums`} className="nav-link">
                       All albums
                     </NavLink>
 
@@ -39,17 +39,17 @@ const Navigation = () => {
                       title={currentUser.email}
                       id="basic-nav-dropdown"
                     >
-                      <NavLink to={`/logout`} className="dropdown-item">
+                      <NavLink to={`${process.env.PUBLIC_URL}/logout`} className="dropdown-item">
                         Log Out
                       </NavLink>
                     </NavDropdown>
                   </>
                 ) : (
                   <>
-                    <NavLink to={`/login`} className="nav-link">
+                    <NavLink to={`${process.env.PUBLIC_URL}/login`} className="nav-link">
                       Login
                     </NavLink>
-                    <NavLink to={`/signup`} className="nav-link">
+                    <NavLink to={`${process.env.PUBLIC_URL}/signup`} className="nav-link">
                       Signup
                     </NavLink>
                   </>

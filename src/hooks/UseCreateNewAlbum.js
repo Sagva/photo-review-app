@@ -15,7 +15,7 @@ const UseCreateNewAlbum = () => {
     });
 
     if (currentUser) {
-      navigate(`/album/${newAlbum.id}`);
+      navigate(`${process.env.PUBLIC_URL}/album/${newAlbum.id}`);
     } 
   };
 

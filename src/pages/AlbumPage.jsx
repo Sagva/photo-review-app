@@ -35,7 +35,7 @@ const AlbumPage = () => {
     toggleBoolean: setShowModal,
     message: {
       title: "Link to the album:",
-      text: `/album/${id}`,
+      text: `http://elenamyadzeleva.com${process.env.PUBLIC_URL}/album/${id}`,
     },
   };
 

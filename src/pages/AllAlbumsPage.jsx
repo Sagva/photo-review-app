@@ -50,7 +50,7 @@ const AllAlbumsPage = () => {
                       cursor: "pointer",
                     }}
                     className="mx-3 my-3"
-                    onClick={() => navigate(`/album/${album.id}`)}
+                    onClick={() => navigate(`${process.env.PUBLIC_URL}/album/${album.id}`)}
                   >
                     <Card.Body>
                       <Card.Title>{album.name}</Card.Title>

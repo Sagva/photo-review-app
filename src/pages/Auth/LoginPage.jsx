@@ -19,7 +19,7 @@ const LoginPage = () => {
     try {
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate(`/all-albums`);
+      navigate(`${process.env.PUBLIC_URL}/all-albums`);
     } catch (e) {
       setError(e.message);
       setLoading(false);
@@ -55,13 +55,16 @@ const LoginPage = () => {
               </Form>
 
               <div className="text-center mt-3">
-                <Link to={`/forgot-password`}>Forgot Password?</Link>
+                <Link to={`${process.env.PUBLIC_URL}/forgot-password`}>
+                  Forgot Password?
+                </Link>
               </div>
             </Card.Body>
           </Card>
 
           <div className="text-center mt-3">
-            Need an account? <Link to={`/signup`}>Sign Up</Link>
+            Need an account?{" "}
+            <Link to={`${process.env.PUBLIC_URL}/signup`}>Sign Up</Link>
           </div>
         </Col>
       </Row>
